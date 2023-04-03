@@ -1,4 +1,19 @@
-<script setup lang="ts">
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+import { usePlaces } from '@/composables/usePlaces';
+
+export default defineComponent({
+  name: 'HomeView',
+  setup() {
+
+    usePlaces();
+
+    return {
+
+    };
+  },
+});
 </script>
 
 <template>

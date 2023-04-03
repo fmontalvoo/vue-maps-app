@@ -15,7 +15,8 @@ export const usePlacesStore = defineStore('places', () => {
         getInitialLocation() {
             navigator.geolocation.getCurrentPosition(
                 ({ coords }) => {
-                    userLocation.value = [coords.latitude, coords.longitude]
+                    const { latitude, longitude } = coords
+                    userLocation.value = [longitude, latitude]
                     isLoading.value = false
                 },
                 (err) => {
