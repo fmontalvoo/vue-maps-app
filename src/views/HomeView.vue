@@ -3,8 +3,13 @@ import { defineComponent } from 'vue';
 
 import { usePlaces } from '@/composables/usePlaces';
 
+import MapView from '@/components/map-view/MapView.vue';
+
 export default defineComponent({
   name: 'HomeView',
+  components: {
+    MapView,
+  },
   setup() {
 
     usePlaces();
@@ -17,7 +22,5 @@ export default defineComponent({
 </script>
 
 <template>
-  <main>
-    <h1>Home</h1>
-  </main>
+  <MapView />
 </template>
