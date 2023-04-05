@@ -18,6 +18,13 @@ export const useMapStore = defineStore('map', () => {
 
         markers.value = [] // reset markers
 
+        if (map.value?.getLayer('RouteString')) {
+            map.value?.removeLayer('RouteString')
+            map.value?.removeSource('RouteString')
+            distance.value = undefined
+            duration.value = undefined
+        }
+
         if (!places.length) return
 
         markers.value = places.map(p => {
@@ -42,7 +49,7 @@ export const useMapStore = defineStore('map', () => {
 
     const setRoutePolyline = (coords: number[][]) => {
         const start = coords[0]
-        
+
         const bounds = new Mapboxgl.LngLatBounds(
             [start[0], start[1]],
             [start[0], start[1]],
