@@ -6,7 +6,7 @@ import { usePlacesStore } from '@/stores/places'
 
 export const usePlaces = () => {
     const store = usePlacesStore()
-    const { getInitialLocation } = store
+    const { getInitialLocation, searchPlaces } = store
     const { isLoading, userLocation, isUserLocationReady } = storeToRefs(store)
 
     onMounted(() => {
@@ -18,6 +18,7 @@ export const usePlaces = () => {
     return {
         isLoading,
         userLocation,
+        searchPlaces,
         isUserLocationReady,
     }
 }
