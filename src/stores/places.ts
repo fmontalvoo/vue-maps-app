@@ -35,7 +35,10 @@ export const usePlacesStore = defineStore('places', () => {
             )
         },
         searchPlaces: async (query: string) => {
-            if (!query?.length) return []
+            if (!query?.length) {
+                places.value = []
+                return
+            }
 
             isLoadingPlaces.value = true
 

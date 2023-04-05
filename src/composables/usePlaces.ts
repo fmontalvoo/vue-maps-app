@@ -7,7 +7,7 @@ import { usePlacesStore } from '@/stores/places'
 export const usePlaces = () => {
     const store = usePlacesStore()
     const { getInitialLocation, searchPlaces } = store
-    const { isLoading, userLocation, isUserLocationReady } = storeToRefs(store)
+    const { places, isLoading, userLocation, isLoadingPlaces, isUserLocationReady } = storeToRefs(store)
 
     onMounted(() => {
         console.log('HomeView mounted', isUserLocationReady.value)
@@ -16,8 +16,10 @@ export const usePlaces = () => {
     })
 
     return {
+        places,
         isLoading,
         userLocation,
+        isLoadingPlaces,
         searchPlaces,
         isUserLocationReady,
     }

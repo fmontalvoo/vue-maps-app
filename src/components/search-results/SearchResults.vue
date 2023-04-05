@@ -4,24 +4,11 @@
 <template>
     <ul class="list-group mt-1">
 
-        <li class="list-group-item d-flex justify-content-between align-items-start">
-            <div class="ms-2 me-auto">
-                <div class="fw-bold">Lugar</div>
-                Descripcion lugar
-            </div>
-            <button class="badge btn btn-secondary rounded-pill"><i class="fa-solid fa-route"></i></button>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-start">
-            <div class="ms-2 me-auto">
-                <div class="fw-bold">Lugar</div>
-                Descripcion lugar
-            </div>
-            <button class="badge btn btn-secondary rounded-pill"><i class="fa-solid fa-route"></i></button>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-start">
-            <div class="ms-2 me-auto">
-                <div class="fw-bold">Lugar</div>
-                Descripcion lugar
+        <li v-if="results.length > 0" v-for="result of results" :key="result.id"
+            class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto text-truncate">
+                <div class="fw-bold">{{ result.text_es }}</div>
+                {{ result.place_name_es }}
             </div>
             <button class="badge btn btn-secondary rounded-pill"><i class="fa-solid fa-route"></i></button>
         </li>

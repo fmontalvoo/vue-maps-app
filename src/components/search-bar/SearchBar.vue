@@ -3,7 +3,7 @@
 <template>
     <div class="searchbar-container">
         <input class="form-control" type="text" placeholder="Buscar" v-model="search" />
-        <!-- <SearchResults /> -->
+        <SearchResults v-if="!isLoadingPlaces && places.length > 0" :results="places" />
     </div>
 </template>
 
@@ -17,5 +17,6 @@
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
     background-color: white;
     padding: 5px;
+    width: 350px;
 }
 </style>

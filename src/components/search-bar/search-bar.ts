@@ -13,10 +13,12 @@ export default defineComponent({
         const query = ref('')
         const debounce = ref()
 
-        const { searchPlaces } = usePlaces()
+        const { places, searchPlaces, isLoadingPlaces } = usePlaces()
 
         return {
             query,
+            places,
+            isLoadingPlaces,
             search: computed({
                 get: () => query.value,
                 set: (value) => {
