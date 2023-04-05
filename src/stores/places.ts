@@ -1,15 +1,22 @@
 import { ref, computed } from 'vue'
+
 import { defineStore } from 'pinia'
+
 import { searchPlaces } from '@/services'
+import type { Feature } from '@/models/places'
 
 export const usePlacesStore = defineStore('places', () => {
     const isLoading = ref(true)
+    const places = ref<Feature[]>([])
+    const isLoadingPlaces = ref(false)
     const userLocation = ref<[number, number] | undefined>()
 
     return {
         // state
+        places,
         isLoading,
         userLocation,
+        isLoadingPlaces,
         // getters
         isUserLocationReady: computed(() => !!userLocation.value),
         // actions
@@ -29,13 +36,17 @@ export const usePlacesStore = defineStore('places', () => {
         },
         searchPlaces: async (query: string) => {
             if (!query?.length) return []
+
+            isLoadingPlaces.value = true
+
             const res = await searchPlaces(query, {
                 params: {
                     proximity: userLocation.value?.join(','),
                 }
             })
 
-            console.log('res', res.features)
+            places.value = res.features
+            isLoadingPlaces.value = false
         }
     }
 })
