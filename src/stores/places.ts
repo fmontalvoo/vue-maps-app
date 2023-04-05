@@ -1,5 +1,6 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import { searchPlaces } from '@/services'
 
 export const usePlacesStore = defineStore('places', () => {
     const isLoading = ref(true)
@@ -26,11 +27,15 @@ export const usePlacesStore = defineStore('places', () => {
                 }
             )
         },
-        searchPlaces: async (query: string = '') => {
-            const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?country=ec&proximity=-78.98515489632538%2C-2.893321958096948&language=es&access_token=${import.meta.env.VITE_MAPBOX_TOKEN}`
-            const response = await fetch(url)
-            const data = await response.json()
-            return data
+        searchPlaces: async (query: string) => {
+            if (!query?.length) return []
+            const res = await searchPlaces(query, {
+                params: {
+                    proximity: userLocation.value?.join(','),
+                }
+            })
+
+            console.log('res', res.features)
         }
     }
 })
