@@ -6,6 +6,7 @@ export const useMap = () => {
     const store = useMapStore()
     const { setMap,
         setMarkers,
+        setRoutePolyline,
         getRouteBetweenSE } = store
 
     const {
@@ -23,6 +24,7 @@ export const useMap = () => {
         setMap,
         isMapReady,
         setMarkers,
+        setRoutePolyline,
         getRouteBetweenSE,
     }
 }

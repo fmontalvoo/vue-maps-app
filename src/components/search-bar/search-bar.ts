@@ -14,7 +14,7 @@ export default defineComponent({
         const query = ref('')
         const debounce = ref()
 
-        const { map, setMarkers, getRouteBetweenSE } = useMap()
+        const { map, setMarkers, getRouteBetweenSE, setRoutePolyline } = useMap()
         const { places, searchPlaces, isLoadingPlaces, userLocation } = usePlaces()
 
         watch(places, (plcs: Feature[]) => setMarkers(plcs))
@@ -46,7 +46,8 @@ export default defineComponent({
                 const start: LngLat = [...userLocation.value!]
                 const end: LngLat = [lng, lat]
 
-                await getRouteBetweenSE(start, end)
+                const res = await getRouteBetweenSE(start, end)
+                setRoutePolyline(res.routes[0].geometry.coordinates)
             }
         }
     }
