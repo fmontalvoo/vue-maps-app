@@ -4,7 +4,10 @@ import { useMapStore } from "@/stores/map"
 
 export const useMap = () => {
     const store = useMapStore()
-    const { setMap, setMarkers } = store
+    const { setMap,
+        setMarkers,
+        getRouteBetweenSE } = store
+
     const {
         map,
         markers,
@@ -18,7 +21,8 @@ export const useMap = () => {
         distance,
         duration,
         setMap,
-        setMarkers,
         isMapReady,
+        setMarkers,
+        getRouteBetweenSE,
     }
 }

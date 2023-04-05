@@ -3,7 +3,7 @@
 <template>
     <div class="searchbar-container">
         <input class="form-control" type="text" placeholder="Buscar" v-model="search" />
-        <SearchResults v-if="!isLoadingPlaces && places.length > 0" :results="places" @on-select="onSelect" />
+        <SearchResults v-if="!isLoadingPlaces && places.length > 0" :results="places" @select="onSelect" @goto="goTo" />
     </div>
 </template>
 

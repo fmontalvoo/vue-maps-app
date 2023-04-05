@@ -11,7 +11,8 @@ export default defineComponent({
         }
     },
     emits: {
-        'on-select': (place: Feature) => place,
+        'goto': (place: Feature) => place,
+        'select': (place: Feature) => place,
     },
     setup(props, { emit }) {
         const selected = ref('')
@@ -21,7 +22,7 @@ export default defineComponent({
             results: props.results,
             selectPlace: (place: Feature) => {
                 selected.value = place.id
-                emit('on-select', place)
+                emit('select', place)
             }
         }
     }

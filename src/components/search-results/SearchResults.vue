@@ -11,7 +11,8 @@
                 <div class="fw-bold">{{ result.text_es }}</div>
                 {{ result.place_name_es }}
             </div>
-            <button class="badge btn btn-secondary rounded-pill"><i class="fa-solid fa-route"></i></button>
+            <button class="badge btn btn-secondary rounded-pill" @click="$emit('goto', result)"><i
+                    class="fa-solid fa-route"></i></button>
         </li>
 
     </ul>

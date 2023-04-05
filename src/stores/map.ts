@@ -1,9 +1,11 @@
 import { ref, computed } from 'vue'
 
-import { defineStore } from 'pinia'
 import Mapboxgl from 'mapbox-gl'
+import { defineStore } from 'pinia'
 
+import { getRoute } from '@/services'
 import type { Feature } from '@/models/places'
+import type { LngLat } from '@/models/route'
 
 export const useMapStore = defineStore('map', () => {
     const map = ref<mapboxgl.Map | undefined>()
@@ -34,6 +36,11 @@ export const useMapStore = defineStore('map', () => {
         markers.value.forEach(m => m.addTo(map.value!))
     }
 
+    const getRouteBetweenSE = async (start: LngLat, end: LngLat) => {
+        const res = await getRoute({ start, end })
+        console.table(res)
+    }
+
     return {
         // state
         map,
@@ -44,6 +51,7 @@ export const useMapStore = defineStore('map', () => {
         isMapReady: computed(() => !!map.value),
         // actions
         setMarkers,
+        getRouteBetweenSE,
         setMap(m: mapboxgl.Map) {
             map.value = m
         },

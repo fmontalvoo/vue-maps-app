@@ -1,9 +1,9 @@
 import { computed, defineComponent, ref, watch } from 'vue'
 
-import { useMap, usePlaces } from '@/composables'
-
-import SearchResults from '../search-results/SearchResults.vue'
 import type { Feature } from '@/models/places'
+import { useMap, usePlaces } from '@/composables'
+import SearchResults from '../search-results/SearchResults.vue'
+import type { LngLat } from '@/models/route'
 
 export default defineComponent({
     name: 'SearchBar',
@@ -14,8 +14,8 @@ export default defineComponent({
         const query = ref('')
         const debounce = ref()
 
-        const { map, setMarkers } = useMap()
-        const { places, searchPlaces, isLoadingPlaces } = usePlaces()
+        const { map, setMarkers, getRouteBetweenSE } = useMap()
+        const { places, searchPlaces, isLoadingPlaces, userLocation } = usePlaces()
 
         watch(places, (plcs: Feature[]) => setMarkers(plcs))
 
@@ -39,6 +39,14 @@ export default defineComponent({
                     center: [lng, lat],
                     zoom: 14,
                 })
+            },
+            goTo: async (place: Feature) => {
+                const [lng, lat] = place.center
+
+                const start: LngLat = [...userLocation.value!]
+                const end: LngLat = [lng, lat]
+
+                await getRouteBetweenSE(start, end)
             }
         }
     }
