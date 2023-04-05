@@ -23,7 +23,8 @@ export default defineComponent({
 </script>
 
 <template>
-    <button v-if="isLocationReady" class="btn btn-primary" @click="myLocation">Mi ubicación</button>
+    <button v-if="isLocationReady" class="btn btn-primary" @click="myLocation">
+        <i class="fa-solid fa-location-crosshairs"></i></button>
 </template>
 
 <style scoped>
@@ -31,5 +32,6 @@ button {
     position: fixed;
     right: 30px;
     top: 70px;
+    border-radius: 100%;
 }
 </style>

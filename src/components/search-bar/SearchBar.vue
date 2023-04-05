@@ -5,10 +5,13 @@
         <input class="form-control" type="text" placeholder="Buscar" />
 
         <!-- <ul class="list-group mt-1">
-            <li class="list-group-item list-group-item-action">Lugar</li>
-            <li class="list-group-item list-group-item-action">Lugar</li>
-            <li class="list-group-item list-group-item-action">Lugar</li>
-            <li class="list-group-item list-group-item-action">Lugar</li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Lugar</div>
+                    Descripcion lugar
+                </div>
+                <button class="badge btn btn-secondary rounded-pill"><i class="fa-solid fa-route"></i></button>
+            </li>
         </ul> -->
     </div>
 </template>
