@@ -1,5 +1,9 @@
 import { ref, computed } from 'vue'
+
 import { defineStore } from 'pinia'
+import Mapboxgl from 'mapbox-gl'
+
+import type { Feature } from '@/models/places'
 
 export const useMapStore = defineStore('map', () => {
     const map = ref<mapboxgl.Map | undefined>()
@@ -7,6 +11,28 @@ export const useMapStore = defineStore('map', () => {
     const distance = ref<number | undefined>()
     const duration = ref<number | undefined>()
 
+    const setMarkers = (places: Feature[]) => {
+        markers.value.forEach(m => m.remove()) // remove all markers
+
+        markers.value = [] // reset markers
+
+        if (!places.length) return
+
+        markers.value = places.map(p => {
+            const [lng, lat] = p.center
+
+            const popup = new Mapboxgl.Popup({ offset: 25 })
+                .setLngLat([lng, lat])
+                .setHTML(`<h6>${p.text_es}</h6><p>${p.place_name_es}</p>`)
+
+            const marker = new Mapboxgl.Marker()
+                .setLngLat([lng, lat])
+                .setPopup(popup)
+
+            return marker
+        })
+        markers.value.forEach(m => m.addTo(map.value!))
+    }
 
     return {
         // state
@@ -17,8 +43,9 @@ export const useMapStore = defineStore('map', () => {
         // getters
         isMapReady: computed(() => !!map.value),
         // actions
+        setMarkers,
         setMap(m: mapboxgl.Map) {
             map.value = m
-        }
+        },
     }
 })

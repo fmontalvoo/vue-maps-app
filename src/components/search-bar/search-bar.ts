@@ -1,4 +1,4 @@
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref, watch } from 'vue'
 
 import { useMap, usePlaces } from '@/composables'
 
@@ -14,8 +14,10 @@ export default defineComponent({
         const query = ref('')
         const debounce = ref()
 
-        const { map } = useMap()
+        const { map, setMarkers } = useMap()
         const { places, searchPlaces, isLoadingPlaces } = usePlaces()
+
+        watch(places, (plcs: Feature[]) => setMarkers(plcs))
 
         return {
             query,
