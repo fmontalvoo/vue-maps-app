@@ -44,7 +44,15 @@ export const useMapStore = defineStore('map', () => {
     }
 
     const getRouteBetweenSE = async (start: LngLat, end: LngLat) => {
-        return await getRoute({ start, end })
+        const res = await getRoute({ start, end })
+
+        let kms = res.routes[0].distance / 1000
+        kms = Math.round(kms * 100) / 100
+        distance.value = kms
+
+        duration.value = Math.floor(distance.value)
+
+        return res
     }
 
     const setRoutePolyline = (coords: number[][]) => {
