@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 import type { Feature } from '@/models/places'
 
@@ -10,9 +10,19 @@ export default defineComponent({
             required: true
         }
     },
-    setup(props) {
+    emits: {
+        'on-select': (place: Feature) => place,
+    },
+    setup(props, { emit }) {
+        const selected = ref('')
+
         return {
-            results: props.results
+            selected,
+            results: props.results,
+            selectPlace: (place: Feature) => {
+                selected.value = place.id
+                emit('on-select', place)
+            }
         }
     }
 })

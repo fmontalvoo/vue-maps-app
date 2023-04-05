@@ -1,8 +1,9 @@
 import { computed, defineComponent, ref } from 'vue'
 
-import { usePlaces } from '@/composables'
+import { useMap, usePlaces } from '@/composables'
 
 import SearchResults from '../search-results/SearchResults.vue'
+import type { Feature } from '@/models/places'
 
 export default defineComponent({
     name: 'SearchBar',
@@ -13,6 +14,7 @@ export default defineComponent({
         const query = ref('')
         const debounce = ref()
 
+        const { map } = useMap()
         const { places, searchPlaces, isLoadingPlaces } = usePlaces()
 
         return {
@@ -28,7 +30,14 @@ export default defineComponent({
                         searchPlaces(value)
                     }, 500)
                 }
-            })
+            }),
+            onSelect: (place: Feature) => {
+                const [lng, lat] = place.center
+                map.value?.flyTo({
+                    center: [lng, lat],
+                    zoom: 14,
+                })
+            }
         }
     }
 })
